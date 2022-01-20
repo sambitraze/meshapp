@@ -11,7 +11,9 @@ import 'package:meshapp/UIController/text_styles.dart';
 class CustomViewPager extends StatefulWidget {
   List<String>? listTags;
   List<Widget>? listViews;
-  CustomViewPager({Key? key, this.listTags, this.listViews}) : super(key: key);
+  var initialIndex;
+  CustomViewPager({Key? key, this.listTags, this.listViews, this.initialIndex})
+      : super(key: key);
 
   @override
   _CustomViewPagerState createState() => _CustomViewPagerState();
@@ -23,6 +25,7 @@ class _CustomViewPagerState extends State<CustomViewPager> {
     return Container(
         child: DefaultTabController(
       length: widget.listTags!.length,
+      initialIndex: widget.initialIndex ?? 0,
       child: Column(
         children: [
           TabBar(

@@ -34,12 +34,13 @@ class _PostTabbarWidgetState extends State<PostTabbarWidget>
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(0.0),
         child: Column(
           children: [
             // give the tab bar a height [can change hheight to preferred height]
             Container(
               height: 50,
+              margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: Color.fromRGBO(160, 155, 155, 0.25000000298023224),

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:meshapp/Screens/AddPost/Widget/tabbar_widget.dart';
+import 'package:meshapp/Screens/TrainingAndEarning/MyEarning/my_earning_screen.dart';
+import 'package:meshapp/Screens/TrainingAndEarning/MyTraing/View/mytraining_view.dart';
 import 'package:meshapp/Widgets/custom_nav_bar.dart';
 import 'package:meshapp/Widgets/order_floatingbutton.dart';
 import 'package:meshapp/core/helpers/ui_helpers.dart';
 
-import 'Competition/Views/competition_view.dart';
-
-class AuditionAndCompitition extends StatefulWidget {
-  const AuditionAndCompitition({Key? key}) : super(key: key);
+class MyTrainigAndEarningScreen extends StatefulWidget {
+  const MyTrainigAndEarningScreen({Key? key}) : super(key: key);
 
   @override
-  _AuditionAndCompititionState createState() => _AuditionAndCompititionState();
+  _MyTrainigAndEarningScreenState createState() =>
+      _MyTrainigAndEarningScreenState();
 }
 
-class _AuditionAndCompititionState extends State<AuditionAndCompitition> {
+class _MyTrainigAndEarningScreenState extends State<MyTrainigAndEarningScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = UIHelper.getScreenSize(context);
@@ -26,18 +27,18 @@ class _AuditionAndCompititionState extends State<AuditionAndCompitition> {
         body: Container(
           width: size.width,
           height: size.height,
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(0),
           child: Column(
             children: [
               SizedBox(
                 height: MediaQuery.of(context).padding.top + 10,
               ),
               PostTabbarWidget(
-                listTags: ["Competition", "Auditions"],
+                listTags: ["My training", "My Earning"],
                 listViews: [
-                  CompetitionView(true),
+                  MyTrainigMainView(true),
                   // first tab bar view widget
-                  CompetitionView(false),
+                  MyearningScreen()
                 ],
               ),
             ],

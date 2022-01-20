@@ -1,26 +1,38 @@
+import 'dart:io';
+
 import 'package:meshapp/Screens/Win/Model/artist_model.dart';
 
-class CompetitionModel {
+class TrainingModel {
   var title;
   var desc;
   var category;
-  var location;
+  var price;
   var applyDate;
   var applyBeforeDate;
   var comapnyName;
   var companyImage;
+  var offerDesc;
+  var courseLink;
+  double? rating;
+  List<File>? listFiles;
+  List<String>? listFilesUrl;
 
   var status;
   List<ArtistModel>? listOffers;
-  CompetitionModel(
+  TrainingModel(
       {this.applyDate,
       this.category,
       this.desc,
       this.listOffers,
-      this.location,
+      this.price,
+      this.rating,
       this.status,
       this.applyBeforeDate,
       this.comapnyName,
       this.companyImage,
+      this.courseLink,
+      this.offerDesc,
+      this.listFiles,
+      this.listFilesUrl,
       this.title});
 }

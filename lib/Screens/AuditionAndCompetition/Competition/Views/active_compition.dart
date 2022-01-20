@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meshapp/Home/Widgets/search_widget.dart';
-import 'package:meshapp/Screens/AuditionAndCompetition/Controller/compitition_controller.dart';
-import 'package:meshapp/Screens/AuditionAndCompetition/Model/competition_model.dart';
-import 'package:meshapp/Screens/AuditionAndCompetition/Views/competition_list_adaptor.dart';
+import 'package:meshapp/Screens/AuditionAndCompetition/Competition/Controller/compitition_controller.dart';
+import 'package:meshapp/Screens/AuditionAndCompetition/Competition/Model/competition_model.dart';
+import 'package:meshapp/Screens/AuditionAndCompetition/Competition/Views/competition_list_adaptor.dart';
 import 'package:meshapp/UIController/text_styles.dart';
 import 'package:meshapp/core/helpers/ui_helpers.dart';
 
@@ -31,14 +31,14 @@ class _ActiveCompititionState extends State<ActiveCompitition> {
                   itemCount: builder.listCompetitions.length,
                   itemBuilder: (context, index) {
                     CompetitionModel model = builder.listCompetitions[index];
-                    return CompetitionListAdaptorView(model,isActiveCompetition:true);
+                    return CompetitionListAdaptorView(model,
+                        isActiveCompetition: true);
                   }),
             ),
           ),
         ],
       );
+   
     });
   }
-
-
 }

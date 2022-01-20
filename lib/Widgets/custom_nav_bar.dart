@@ -3,7 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meshapp/Home/home_screen.dart';
+import 'package:meshapp/Screens/ArtistsProfile/artist_profile_screen.dart';
 import 'package:meshapp/Screens/AuditionAndCompetition/audition_competition_screen.dart';
+import 'package:meshapp/Screens/Win/Model/artist_model.dart';
+import 'package:meshapp/Screens/Win/Model/experience_model.dart';
+import 'package:meshapp/Screens/Win/Model/skill_model.dart';
+import 'package:meshapp/Screens/Win/Model/social_model.dart';
+import 'package:meshapp/Screens/Win/Model/training_model.dart';
 import 'package:meshapp/Screens/Win/win_screen.dart';
 import 'package:meshapp/UIController/app_theme.dart';
 
@@ -294,13 +300,89 @@ class _MyCustomNavState extends State<MyCustomNav> {
                   InkWell(
                       onTap: () {
                         setState(() {
-                          widget.currentState = 3;
+                          widget.currentState = widget.currentState;
                           selectedState();
                         });
+
                         // Timer(Duration(milliseconds: 700), () {
                         //   Navigator.push(
                         //       context, const HomeScreen();
                         // });
+                        ArtistModel model = ArtistModel(
+                            name: "James Bute",
+                            designation: "Artist",
+                            image:
+                                "https://cdn.pixabay.com/photo/2015/01/06/16/14/woman-590490__340.jpg",
+                            gender: "Male",
+                            age: "21",
+                            folloers: "312",
+                            followings: "102",
+                            about:
+                                "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Read More",
+                            experience:
+                                "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Read More",
+                            training:
+                                "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Read More",
+                            skills: [
+                              SkillModel(
+                                  title: "Theatre", color: Colors.purple),
+                              SkillModel(title: "Music", color: Colors.red),
+                              SkillModel(title: "Art", color: Colors.pink),
+                              SkillModel(
+                                  title: "Modeling", color: Colors.green),
+                              SkillModel(
+                                  title: "Others", color: Colors.lightBlue)
+                            ],
+                            experiences: [
+                              ExperienceModel(
+                                  title: "Videography 1 Year",
+                                  color: Colors.purple),
+                              ExperienceModel(
+                                  title: "Photography 2 years",
+                                  color: Colors.red),
+                              ExperienceModel(
+                                  title: "Modeling 1 year",
+                                  color: Colors.green),
+                            ],
+                            trainingTags: [
+                              TrainingModel(
+                                  title: "Doodle 1 year 1 month",
+                                  color: Colors.purple),
+                              TrainingModel(
+                                  title: "ETC 1 year", color: Colors.red),
+                            ],
+                            listPostImages: [
+                              "https://media.istockphoto.com/photos/futuristic-woman-dance-pose-picture-id1300011415?b=1&k=20&m=1300011415&s=170667a&w=0&h=h5e59yQQtlu6mZyvispB2YmiYyWu3jB35tsXhRtboFU=",
+                              "https://images.unsplash.com/photo-1547153760-18fc86324498?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFuY2V8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
+                              "https://images.unsplash.com/photo-1535525153412-5a42439a210d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZGFuY2V8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
+                              "https://images.unsplash.com/photo-1541904845547-0eaf866de232?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGRhbmNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60",
+                              "https://images.unsplash.com/photo-1495791185843-c73f2269f669?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGRhbmNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60"
+                            ],
+                            listPostVideos: [
+                              "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+                              "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+                              "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+                              "https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+                            ],
+                            listSocial: [
+                              SocialModel(
+                                  platform: "Facebook",
+                                  image: "images/facebook.png"),
+                              SocialModel(
+                                  platform: "Twitter",
+                                  image: "images/twitter.png"),
+                              SocialModel(
+                                  platform: "Linkdlin",
+                                  image: "images/linkdlin.png"),
+                              SocialModel(
+                                  platform: "Instagram",
+                                  image: "images/insta.png")
+                            ]);
+
+                        Get.to(ArtistProfileScreen(
+                          true,
+                          model: model,
+                        ));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

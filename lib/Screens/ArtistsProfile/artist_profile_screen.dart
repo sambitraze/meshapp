@@ -13,7 +13,9 @@ import 'package:get/get.dart';
 
 class ArtistProfileScreen extends StatefulWidget {
   ArtistModel? model;
-  ArtistProfileScreen({Key? key, this.model}) : super(key: key);
+  bool isUserProfile;
+  ArtistProfileScreen(this.isUserProfile, {Key? key, this.model})
+      : super(key: key);
 
   @override
   _ArtistProfileScreenState createState() => _ArtistProfileScreenState();
@@ -58,7 +60,59 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
               ),
               artistFollowDetails(),
               UIHelper.verticalSpaceSm,
-              followbuttons(size, builder),
+              !widget.isUserProfile
+                  ? followbuttons(size, builder)
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Container(
+                        height: 45,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: CustomButton(
+                                () {},
+                                color: Colors.white,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset("images/edit.png",
+                                        color: AppTheme.primaryColor,
+                                        width: 20,
+                                        height: 20),
+                                    UIHelper.horizontalSpaceSm,
+                                    Text("Edit Profile",
+                                        style: textStylePoppinsRegular(
+                                            color: AppTheme.primaryColor))
+                                  ],
+                                ),
+                              ),
+                            ),
+                            UIHelper.horizontalSpaceSm,
+                            Expanded(
+                              child: CustomButton(
+                                () {
+                                  Get.defaultDialog(
+                                      title: "Switch To Business",
+                                      contentPadding: EdgeInsets.all(10),
+                                      titlePadding: EdgeInsets.all(10),
+                                      content: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                            "Are you sure you want to switch to business account?"),
+                                      ),
+                                      onCancel: () {},
+                                      onConfirm: () {},
+                                      textConfirm: "Yes",
+                                      textCancel: "No");
+                                },
+                                text: "Switch to business",
+                                fsize: 14.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
               UIHelper.verticalSpaceSm,
               ProfileViewPager(
                 model: widget.model,

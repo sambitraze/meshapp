@@ -125,6 +125,7 @@ class _ProfileTabbarWidgetState extends State<ProfileTabbarWidget>
                       }),
                     ),
                   ),
+               
                 ),
 
                 SingleChildScrollView(

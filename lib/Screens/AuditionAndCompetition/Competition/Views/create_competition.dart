@@ -1,11 +1,17 @@
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meshapp/Screens/AuditionAndCompetition/Controller/compitition_controller.dart';
-import 'package:meshapp/Screens/AuditionAndCompetition/Model/competition_model.dart';
+import 'package:meshapp/Screens/AuditionAndCompetition/Competition/Controller/compitition_controller.dart';
+import 'package:meshapp/Screens/AuditionAndCompetition/Competition/Model/competition_model.dart';
 import 'package:meshapp/UIController/app_theme.dart';
 import 'package:meshapp/UIController/text_styles.dart';
 import 'package:meshapp/Widgets/custom_button.dart';
 import 'package:meshapp/core/helpers/ui_helpers.dart';
+
+import 'competition_view.dart';
 
 class CreateCompetitionScreen extends StatefulWidget {
   const CreateCompetitionScreen({Key? key}) : super(key: key);
@@ -21,6 +27,8 @@ class _CreateCompetitionScreenState extends State<CreateCompetitionScreen> {
   TextEditingController title = new TextEditingController();
   TextEditingController desc = new TextEditingController();
   TextEditingController location = new TextEditingController();
+  FilePickerResult? result;
+  List<File> listFiles = [];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +50,6 @@ class _CreateCompetitionScreenState extends State<CreateCompetitionScreen> {
           body: SingleChildScrollView(
             child: Container(
               width: size.width,
-              height: size.height,
               padding: EdgeInsets.all(20),
               child: Column(children: [
                 ClipRRect(
@@ -74,6 +81,41 @@ class _CreateCompetitionScreenState extends State<CreateCompetitionScreen> {
                     controller: location,
                     maxLength: 300),
                 calenderPicker(title: "Apply Before"),
+                isCompetition! ? Container() : dottedBorderContainer(),
+                listFiles.length > 0
+                    ? Container(
+                        width: size.width,
+                        padding: EdgeInsets.only(top: 20, bottom: 20),
+                        child: Wrap(
+                          runSpacing: 5,
+                          spacing: 5,
+                          alignment: WrapAlignment.start,
+                          children: List.generate(listFiles.length, (index) {
+                            return Stack(
+                              children: [
+                                Container(
+                                    width: size.width * 0.29,
+                                    height: size.width * 0.29,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: FileImage(listFiles[index]),
+                                        ))),
+                                Positioned(
+                                    right: 10,
+                                    bottom: 10,
+                                    child: Image.asset(
+                                      "images/expand.png",
+                                      width: 20,
+                                      height: 20,
+                                    ))
+                              ],
+                            );
+                          }),
+                        ),
+                      )
+                    : Container(),
                 UIHelper.verticalSpaceL,
                 CustomButton(
                   () {
@@ -88,9 +130,12 @@ class _CreateCompetitionScreenState extends State<CreateCompetitionScreen> {
                         desc: desc.text,
                         listOffers: [],
                         location: location.text,
+                        listFiles: listFiles,
                         status: "");
 
-                    provider.addToMyCompetition(model);
+                    isCompetition!
+                        ? provider.addToMyCompetition(model)
+                        : provider.addToMyAudition(model);
 
                     Get.back();
                   },
@@ -216,6 +261,54 @@ class _CreateCompetitionScreenState extends State<CreateCompetitionScreen> {
         Divider(color: Colors.black),
         SizedBox(height: 10),
       ],
+    );
+  }
+
+  DottedBorder dottedBorderContainer() {
+    return DottedBorder(
+      borderType: BorderType.RRect,
+      radius: Radius.circular(15),
+      color: AppTheme.primaryColor,
+      strokeWidth: 2,
+      dashPattern: [5, 4],
+      child: InkWell(
+        onTap: () async {
+          result = await FilePicker.platform
+              .pickFiles(type: FileType.custom, allowedExtensions: ['Jpg']);
+
+          setState(() {
+            if (result != null) {
+              setState(() {
+                listFiles.add(File(result!.files.single.path!));
+              });
+            } else {
+              // User canceled the picker
+            }
+          });
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 13),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Select Media File",
+                      style: textStyleRubicRegular(
+                          fontSize: 16, color: Colors.grey)),
+                  Image.asset(
+                    "images/upload.png",
+                    width: 30,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

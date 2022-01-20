@@ -22,11 +22,12 @@ class _WinAdaptorState extends State<WinAdaptor> {
           ListTile(
             onTap: () {
               Get.to(ArtistProfileScreen(
+                false,
                 model: widget.model,
               ));
             },
-            leading:  Hero(
-              tag: "artist"+widget.model!.name,
+            leading: Hero(
+              tag: "artist" + widget.model!.name,
               child: CircleAvatar(
                 backgroundImage: NetworkImage(widget.model!.image),
                 radius: 30,

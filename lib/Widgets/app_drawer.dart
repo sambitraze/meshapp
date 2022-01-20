@@ -9,6 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:meshapp/Screens/Authentication/auth_screen.dart';
+import 'package:meshapp/Screens/TrainingAndEarning/mytraning_earning_screen.dart';
 import 'package:meshapp/UIController/app_theme.dart';
 import 'package:meshapp/UIController/text_styles.dart';
 import 'package:meshapp/Widgets/custom_button.dart';
@@ -152,6 +153,8 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 3;
                           });
+                          Get.off(MyTrainigAndEarningScreen(),
+                              transition: Transition.noTransition);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,

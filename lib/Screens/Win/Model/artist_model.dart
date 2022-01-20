@@ -21,6 +21,7 @@ class ArtistModel {
   List<String>? listPostImages;
   List<String>? listPostVideos;
   List<SocialModel>? listSocial;
+  
   ArtistModel(
       {this.about,
       this.age,
