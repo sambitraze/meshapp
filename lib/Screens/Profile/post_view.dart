@@ -1,30 +1,29 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:meshapp/Home/Views/home_posts.dart';
-import 'package:meshapp/Home/Views/home_question_posts.dart';
-import 'package:meshapp/Screens/Win/Model/artist_model.dart';
+import 'package:meshapp/Screens/AddPost/Widget/tabbar_widget.dart';
+import 'package:meshapp/Screens/Profile/profile_model.dart';
 import 'package:meshapp/UIController/app_theme.dart';
 import 'package:meshapp/UIController/text_styles.dart';
-import 'package:meshapp/Widgets/custom_button.dart';
 import 'package:meshapp/core/helpers/ui_helpers.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
-class ProfileTabbarWidget extends StatefulWidget {
-  ArtistModel? model;
-  ProfileTabbarWidget({this.model});
+class PostView extends StatefulWidget {
+  ProfileModel? model;
+  PostView({Key? key, this.model}) : super(key: key);
+
   @override
-  _ProfileTabbarWidgetState createState() => _ProfileTabbarWidgetState();
+  _PostViewState createState() => _PostViewState();
 }
 
-class _ProfileTabbarWidgetState extends State<ProfileTabbarWidget>
+class _PostViewState extends State<PostView>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -80,9 +79,6 @@ class _ProfileTabbarWidgetState extends State<ProfileTabbarWidget>
                 Tab(
                   text: 'VIDEOS',
                 ),
-                Tab(
-                  text: 'SOCIALS',
-                ),
               ],
             ),
           ),
@@ -126,7 +122,6 @@ class _ProfileTabbarWidgetState extends State<ProfileTabbarWidget>
                     ),
                   ),
                 ),
-
                 SingleChildScrollView(
                   child: Container(
                     padding: EdgeInsets.only(top: 10),
@@ -166,46 +161,6 @@ class _ProfileTabbarWidgetState extends State<ProfileTabbarWidget>
                                 bottom: 50,
                                 child:
                                     Icon(Icons.play_arrow, color: Colors.white))
-                          ],
-                        );
-                      }),
-                    ),
-                  ),
-                ),
-
-                //social buttons
-                SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.only(top: 30),
-                    child: Wrap(
-                      runSpacing: 15,
-                      spacing: 25,
-                      alignment: WrapAlignment.center,
-                      children: List.generate(widget.model!.listSocial!.length,
-                          (index) {
-                        return Stack(
-                          children: [
-                            Container(
-                              width: size.width * 0.3,
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Image.asset(
-                                    widget.model!.listSocial![index].image,
-                                    width: 50,
-                                    height: 50,
-                                  ),
-                                  UIHelper.verticalSpaceMd,
-                                  CustomButton(
-                                    () {},
-                                    text: "Connect",
-                                    height: 40.0,
-                                  )
-                                ],
-                              ),
-                            ),
                           ],
                         );
                       }),

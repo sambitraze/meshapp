@@ -8,7 +8,8 @@ import 'package:meshapp/core/helpers/ui_helpers.dart';
 
 class HomeAppBar extends StatefulWidget {
   var scaffoldKey;
-  HomeAppBar({Key? key, this.scaffoldKey}) : super(key: key);
+  var barTitile;
+  HomeAppBar({Key? key, this.scaffoldKey, this.barTitile}) : super(key: key);
 
   @override
   _HomeAppBarState createState() => _HomeAppBarState();
@@ -27,7 +28,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
             onTap: () {
               Get.to(WinScreen());
             },
-            child: Text("EXPLORE",
+            child: Text(widget.barTitile ?? "EXPLORE",
                 style: textStylemanropeRegular(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w600,

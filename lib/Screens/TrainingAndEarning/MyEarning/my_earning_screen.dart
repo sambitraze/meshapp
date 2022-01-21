@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meshapp/Screens/TrainingAndEarning/Controller/training_earning_controller.dart';
+import 'package:meshapp/Screens/TrainingAndEarning/MyEarning/Model/earning_model.dart';
+import 'package:meshapp/Screens/TrainingAndEarning/MyEarning/accountdetail.dart';
+import 'package:meshapp/Screens/TrainingAndEarning/MyEarning/earning_list_adaptor.dart';
 import 'package:meshapp/UIController/app_theme.dart';
 import 'package:meshapp/UIController/text_styles.dart';
 import 'package:meshapp/Widgets/custom_button.dart';
@@ -17,45 +22,113 @@ class _MyearningScreenState extends State<MyearningScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = UIHelper.getScreenSize(context);
-    return Scaffold(
-        backgroundColor: Color(0xffF5F7FC),
-        body: Container(
-          width: size.width,
-          height: size.height,
-          padding: EdgeInsets.all(0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Your Earning',
-                textAlign: TextAlign.left,
-                style: textStylePoppinsRegular(
-                  color: Color.fromRGBO(137, 89, 252, 1),
-                  fontSize: 15,
-                  letterSpacing: 0,
-                  fontWeight: FontWeight.w500,
-                  /*PERCENT not supported*/
+    return GetBuilder<TrainingEarningController>(builder: (builder) {
+      return Scaffold(
+          backgroundColor: Color(0xffF5F7FC),
+          body: Container(
+            width: size.width,
+            height: size.height,
+            padding: EdgeInsets.all(0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              UIHelper.verticalSpaceSm,
-              headerBox(size),
-              UIHelper.verticalSpaceL,
-              Expanded(
-                  child: Container(
-                width: size.width,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: AppTheme.primaryColor,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20))),
-                child: Column(),
-              ))
+                Text(
+                  'Your Earning',
+                  textAlign: TextAlign.left,
+                  style: textStylePoppinsRegular(
+                    color: Color.fromRGBO(137, 89, 252, 1),
+                    fontSize: 15,
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.w500,
+                    /*PERCENT not supported*/
+                  ),
+                ),
+                UIHelper.verticalSpaceSm,
+                headerBox(size),
+                UIHelper.verticalSpaceL,
+                Expanded(
+                    child: Container(
+                  width: size.width,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: AppTheme.primaryColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20))),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        addBankButton(),
+                        UIHelper.verticalSpaceSm,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Card(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              leading: Image.asset("images/bank.png"),
+                              title: Text("Bank Details",
+                                  style: textStyleRubicRegular(
+                                    fontSize: 18.0,
+                                    color: AppTheme.primaryColor,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                              subtitle: Text(
+                                  "This account is used to facilitate all your deposits and withdrawals",
+                                  style: textStyleRubicRegular(
+                                    fontSize: 14.0,
+                                    color: AppTheme.primaryColor,
+                                    fontWeight: FontWeight.w400,
+                                  )),
+                            ),
+                          ),
+                        ),
+                        UIHelper.verticalSpaceSm,
+                        for (EarninigModel model in builder.listEarnings)
+                          EarningListAdaptorView(model)
+                        // ListView.builder(
+                        //     shrinkWrap: true,
+                        //     itemBuilder: (context, index) {
+                        //       return Container();
+                        //     })
+                      ],
+                    ),
+                  ),
+                ))
+              ],
+            ),
+          ));
+    });
+  }
+
+  Padding addBankButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () {
+          Get.to(AccountDetail());
+        },
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("images/stopred.png", width: 20),
+              UIHelper.horizontalSpaceSm,
+              Text(
+                "Add Bank Details",
+                style: textStyleRubicRegular(fontSize: 14.0),
+              )
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   headerBox(Size size) {
@@ -84,11 +157,11 @@ class _MyearningScreenState extends State<MyearningScreen> {
                       style: textStyleRubicRegular(
                           fontSize: 12, color: Colors.white)),
                   UIHelper.horizontalSpaceSm,
-                  Text("₹ 1000",
+                  Text("₹ 1000.0",
                       style: textStyleRubicRegular(
                           fontSize: 24,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold))
+                          fontWeight: FontWeight.w600))
                 ],
               )),
               Expanded(

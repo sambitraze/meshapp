@@ -66,7 +66,7 @@ class FeedPlayerPortraitControls extends StatelessWidget {
                         fit: BoxFit.fill,
                         image: AssetImage("images/Base.png"))),
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                width: MediaQuery.of(context).size.width - 30,
+                width: MediaQuery.of(context).size.width - 20,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[

@@ -32,7 +32,34 @@ class UserProfileTile extends StatelessWidget {
               fontSize: 12.0,
               fontWeight: FontWeight.w400,
               color: Colors.black)),
+      trailing: PopupMenuButton<int>(
+        color: Colors.white,
+        itemBuilder: (context) => [
+          PopupMenuItem<int>(
+              value: 0,
+              child: Row(
+                children: [
+                  Text(
+                    "Delete",
+                    style: textStylePoppinsRegular(color: Colors.red),
+                  ),
+                  Spacer(),
+                  Icon(Icons.delete, color: Colors.red)
+                ],
+              )),
+          PopupMenuItem<int>(
+              value: 1,
+              child: Row(
+                children: [
+                  Text("Edit",
+                      style: textStylePoppinsRegular(color: Colors.black)),
+                  Spacer(),
+                  Icon(Icons.edit, color: Colors.black)
+                ],
+              )),
+        ],
+        onSelected: (item) {},
+      ),
     );
-  
   }
 }

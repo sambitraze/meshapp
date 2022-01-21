@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:meshapp/Screens/TrainingAndEarning/MyEarning/Model/earning_model.dart';
 import 'package:meshapp/Screens/TrainingAndEarning/MyTraing/Model/trainig_model.dart';
 
 class TrainingEarningController extends GetxController {
@@ -84,6 +85,45 @@ class TrainingEarningController extends GetxController {
         ],
         status: "")
   ];
+  List<EarninigModel> listEarnings = [
+    EarninigModel(
+      comapnyName: "Mesh-studio",
+      companyImage:
+          "https://cdn.pixabay.com/photo/2017/03/27/12/45/hindu-2178480_1280.jpg",
+      title: "Wanted Song Composer",
+      category: "-Singing",
+      rating: 5.0,
+      price: "200.00",
+    ),
+    EarninigModel(
+      comapnyName: "Hangama-studio",
+      companyImage:
+          "https://images.unsplash.com/photo-1535525153412-5a42439a210d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZGFuY2V8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
+      title: "Wanted Song Hangama",
+      category: "-Singing",
+      rating: 5.0,
+      price: "300.00",
+    ),
+    EarninigModel(
+      comapnyName: "Dance-studio",
+      companyImage:
+          "https://cdn.pixabay.com/photo/2018/02/06/14/07/ease-3134828_1280.jpg",
+      title: "Want A Hiphop dancer",
+      category: "-Dence",
+      rating: 4.0,
+      price: "250.00",
+    ),
+    EarninigModel(
+      comapnyName: "T-Series",
+      companyImage:
+          "https://cdn.pixabay.com/photo/2016/03/30/05/41/music-1290087_1280.jpg",
+      title: "Wanted Punjabi singer",
+      category: "-Singing",
+      rating: 5.0,
+      price: "250.00",
+    )
+  ];
+
   List<TrainingModel> listAllTraings = [
     TrainingModel(
         comapnyName: "Mesh-studio",

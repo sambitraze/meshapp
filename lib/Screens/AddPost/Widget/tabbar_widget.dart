@@ -7,7 +7,9 @@ import 'package:meshapp/UIController/text_styles.dart';
 class PostTabbarWidget extends StatefulWidget {
   List<Widget>? listViews;
   List<String>? listTags;
-  PostTabbarWidget({Key? key, this.listTags, this.listViews}) : super(key: key);
+  var initIndex;
+  PostTabbarWidget({Key? key, this.listTags, this.listViews, this.initIndex})
+      : super(key: key);
 
   @override
   _PostTabbarWidgetState createState() => _PostTabbarWidgetState();
@@ -19,8 +21,11 @@ class _PostTabbarWidgetState extends State<PostTabbarWidget>
 
   @override
   void initState() {
-    _tabController =
-        TabController(length: widget.listTags!.length, vsync: this);
+    _tabController = TabController(
+        length: widget.listTags!.length,
+        vsync: this,
+        initialIndex: widget.initIndex ?? 0);
+
     super.initState();
   }
 

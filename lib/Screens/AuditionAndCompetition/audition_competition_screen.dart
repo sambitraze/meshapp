@@ -7,7 +7,8 @@ import 'package:meshapp/core/helpers/ui_helpers.dart';
 import 'Competition/Views/competition_view.dart';
 
 class AuditionAndCompitition extends StatefulWidget {
-  const AuditionAndCompitition({Key? key}) : super(key: key);
+  var initIndex;
+  AuditionAndCompitition({Key? key, this.initIndex}) : super(key: key);
 
   @override
   _AuditionAndCompititionState createState() => _AuditionAndCompititionState();
@@ -39,6 +40,7 @@ class _AuditionAndCompititionState extends State<AuditionAndCompitition> {
                   // first tab bar view widget
                   CompetitionView(false),
                 ],
+                initIndex: widget.initIndex,
               ),
             ],
           ),

@@ -105,6 +105,7 @@ class ArtistController extends GetxController {
           SocialModel(platform: "Linkdlin", image: "images/linkdlin.png"),
           SocialModel(platform: "Instagram", image: "images/insta.png")
         ]),
+  
   ];
   List<ArtistModel> listFollowArtist = [];
   Future addFollow(model) async {

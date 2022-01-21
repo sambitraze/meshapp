@@ -13,7 +13,8 @@ import 'package:meshapp/core/helpers/ui_helpers.dart';
 import 'Views/home_question_posts.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  var barTitle;
+  HomeScreen({Key? key, this.barTitle}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -43,7 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            HomeAppBar(),
+            HomeAppBar(
+              barTitile: widget.barTitle,
+            ),
             UIHelper.verticalSpaceSm,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 30),

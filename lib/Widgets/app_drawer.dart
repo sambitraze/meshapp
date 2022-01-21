@@ -8,8 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:meshapp/Home/home_screen.dart';
+import 'package:meshapp/Screens/AuditionAndCompetition/audition_competition_screen.dart';
 import 'package:meshapp/Screens/Authentication/auth_screen.dart';
+import 'package:meshapp/Screens/Profile/profile_screen.dart';
 import 'package:meshapp/Screens/TrainingAndEarning/mytraning_earning_screen.dart';
+import 'package:meshapp/Screens/Win/win_screen.dart';
 import 'package:meshapp/UIController/app_theme.dart';
 import 'package:meshapp/UIController/text_styles.dart';
 import 'package:meshapp/Widgets/custom_button.dart';
@@ -127,6 +131,11 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 1;
                           });
+                          Get.to(
+                              ProfileScreen(
+                                index: 1,
+                              ),
+                              transition: Transition.noTransition);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,
@@ -140,6 +149,11 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 2;
                           });
+                          Get.to(
+                              ProfileScreen(
+                                index: 0,
+                              ),
+                              transition: Transition.noTransition);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,
@@ -168,6 +182,8 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 4;
                           });
+                          Get.off(AuditionAndCompitition(),
+                              transition: Transition.noTransition);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,
@@ -181,6 +197,11 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 5;
                           });
+                          Get.off(
+                              AuditionAndCompitition(
+                                initIndex: 1,
+                              ),
+                              transition: Transition.noTransition);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,
@@ -194,6 +215,11 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 6;
                           });
+                          Get.to(
+                              ProfileScreen(
+                                index: 2,
+                              ),
+                              transition: Transition.noTransition);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,
@@ -207,6 +233,11 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 7;
                           });
+                          Get.off(
+                              HomeScreen(
+                                barTitle: "Collaborators",
+                              ),
+                              transition: Transition.noTransition);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,
@@ -275,6 +306,8 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 0;
                           });
+                          Get.off(AuthenticationScreen(),
+                              transition: Transition.noTransition);
                         }),
                     // Navigator.pushReplacementNamed(context, Routes.chatlist)),
                   ],
