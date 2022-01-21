@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meshapp/Home/Controller/home_post_controller.dart';
 import 'package:meshapp/Home/Views/home_posts.dart';
 import 'package:meshapp/Home/Widgets/search_widget.dart';
 import 'package:meshapp/Screens/AddPost/Widget/tabbar_widget.dart';
@@ -29,41 +31,44 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Get..put(HomePostController());
     Size size = UIHelper.getScreenSize(context);
-    return Scaffold(
-      key: UIHelper.scaffoldKey,
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: OrderFloatingButton(),
-      bottomNavigationBar: MyCustomNav(0),
-      drawer: AppDrawer(),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        width: size.width,
-        height: size.height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            HomeAppBar(
-              barTitile: widget.barTitle,
-            ),
-            UIHelper.verticalSpaceSm,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: HomeSearchWidget(),
-            ),
-            UIHelper.verticalSpaceSm,
-            PostTabbarWidget(
-              listTags: ["Posts", "Questions"],
-              listViews: [
-                // first tab bar view widget
-                HomePostsView(),
-                HomeQuestionPosts(),
-              ],
-            )
-          ],
+    return GetBuilder<HomePostController>(builder: (builder) {
+      return Scaffold(
+        key: UIHelper.scaffoldKey,
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
+        floatingActionButton: OrderFloatingButton(),
+        bottomNavigationBar: MyCustomNav(0),
+        drawer: AppDrawer(),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          width: size.width,
+          height: size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              HomeAppBar(
+                barTitile: !builder.isHome ? "Collaborators" : "EXPLORE",
+              ),
+              UIHelper.verticalSpaceSm,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: HomeSearchWidget(),
+              ),
+              UIHelper.verticalSpaceSm,
+              PostTabbarWidget(
+                listTags: ["Posts", "Questions"],
+                listViews: [
+                  // first tab bar view widget
+                  HomePostsView(),
+                  HomeQuestionPosts(),
+                ],
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

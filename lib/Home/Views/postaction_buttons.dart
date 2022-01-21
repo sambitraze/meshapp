@@ -14,12 +14,18 @@ class PostActionButtons extends StatefulWidget {
 class _PostActionButtonsState extends State<PostActionButtons> {
   @override
   Widget build(BuildContext context) {
+    bool isLike = true;
     return Container(
       child: Row(
         children: [
           LikeButton(
-            isLiked: true,
+            isLiked: isLike,
             Count: 385,
+            ontap: () {
+              setState(() {
+                isLike = !isLike;
+              });
+            },
           ),
           UIHelper.horizontalSpaceSm,
           CommentButton(

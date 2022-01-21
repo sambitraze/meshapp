@@ -8,6 +8,7 @@ import 'package:meshapp/Screens/Win/Model/artist_model.dart';
 import 'package:meshapp/UIController/app_theme.dart';
 import 'package:meshapp/UIController/text_styles.dart';
 import 'package:meshapp/Widgets/custom_button.dart';
+import 'package:meshapp/Widgets/custom_viewpager.dart';
 import 'package:meshapp/core/helpers/ui_helpers.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +24,9 @@ class ArtistProfileScreen extends StatefulWidget {
 
 class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   bool isFollow = false;
+  bool isBusiness = false;
+  bool isEdit = false;
+
   @override
   Widget build(BuildContext context) {
     Get.put(ArtistController());
@@ -70,7 +74,11 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
                           children: [
                             Expanded(
                               child: CustomButton(
-                                () {},
+                                () {
+                                  setState(() {
+                                    isEdit = true;
+                                  });
+                                },
                                 color: Colors.white,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -92,20 +100,30 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
                               child: CustomButton(
                                 () {
                                   Get.defaultDialog(
-                                      title: "Switch To Business",
+                                      title: isBusiness
+                                          ? "Switch To user"
+                                          : "Switch To Business",
                                       contentPadding: EdgeInsets.all(10),
                                       titlePadding: EdgeInsets.all(10),
                                       content: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                            "Are you sure you want to switch to business account?"),
+                                        child: Text(isBusiness
+                                            ? "Are you sure you want to switch to user account?"
+                                            : "Are you sure you want to switch to business account?"),
                                       ),
                                       onCancel: () {},
-                                      onConfirm: () {},
+                                      onConfirm: () {
+                                        setState(() {
+                                          isBusiness = !isBusiness;
+                                        });
+                                        Get.back();
+                                      },
                                       textConfirm: "Yes",
                                       textCancel: "No");
                                 },
-                                text: "Switch to business",
+                                text: isBusiness
+                                    ? "Switch to user"
+                                    : "Switch to business",
                                 fsize: 14.0,
                               ),
                             ),
@@ -114,14 +132,126 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
                       ),
                     ),
               UIHelper.verticalSpaceSm,
-              ProfileViewPager(
-                model: widget.model,
-              )
+              !isBusiness
+                  ? ProfileViewPager(
+                      model: widget.model,
+                    )
+                  : Container(
+                      child: Expanded(
+                        child: CustomViewPager(
+                          listTags: ["ABOUT", "SOCIAL"],
+                          listViews: [
+                            Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 20),
+                                child: Text(
+                                  "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet\n\n\nType : Private\nIndustry : Entertainment\nFounded : 2020\nLocation : Mysore",
+                                  style: textStyleRubicRegular(
+                                      color: Colors.black, fontSize: 14.0),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    socialTag(
+                                        image: "images/facebook.png",
+                                        platform: "facebook.com/",
+                                        platformId: "facebookId",
+                                        hint: "Your facebookId"),
+                                    socialTag(
+                                        image: "images/insta.png",
+                                        platform: "Instagram.com/",
+                                        platformId: "instagramId",
+                                        hint: "Your instaId"),
+                                    socialTag(
+                                        image: "images/linkdlin.png",
+                                        platform: "linkdlin.com/",
+                                        platformId: "linkdlinId",
+                                        hint: "Your linkdlinId"),
+                                    socialTag(
+                                        image: "images/twitter.png",
+                                        platform: "twitter.com/",
+                                        platformId: "twitterId",
+                                        hint: "Your twitterId"),
+                                    UIHelper.verticalSpaceMd,
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                            child: CustomButton(
+                                          () {
+                                            setState(() {
+                                              isEdit = false;
+                                            });
+                                          },
+                                          text: "Cancel",
+                                          color: Colors.white,
+                                          textcolor: AppTheme.primaryColor,
+                                        )),
+                                        UIHelper.horizontalSpaceMd,
+                                        Expanded(
+                                            child: CustomButton(
+                                          () {
+                                            setState(() {
+                                              isEdit = false;
+                                            });
+                                          },
+                                          text: "SAVE",
+                                        ))
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
             ],
           ),
         ),
       );
     });
+  }
+
+  ListTile socialTag({var image, var platform, var hint, var platformId}) {
+    return ListTile(
+      leading: Image.asset(image, width: 30),
+      title: !isEdit
+          ? RichText(
+              text: TextSpan(children: [
+              TextSpan(
+                  text: platform,
+                  style: textStylemanropeRegular(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16)),
+              TextSpan(
+                  text: platformId,
+                  style: textStylemanropeRegular(
+                      color: AppTheme.primaryColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14))
+            ]))
+          : Row(
+              children: [
+                Text(platform,
+                    style: textStylemanropeRegular(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16)),
+                Expanded(
+                    child: TextField(
+                  decoration:
+                      InputDecoration(hintText: hint, border: InputBorder.none),
+                ))
+              ],
+            ),
+    );
   }
 
   Row followbuttons(Size size, ArtistController builder) {

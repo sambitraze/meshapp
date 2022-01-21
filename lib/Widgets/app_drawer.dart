@@ -8,9 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:meshapp/Home/Controller/home_post_controller.dart';
+import 'package:meshapp/Home/collobration_screen.dart';
 import 'package:meshapp/Home/home_screen.dart';
 import 'package:meshapp/Screens/AuditionAndCompetition/audition_competition_screen.dart';
 import 'package:meshapp/Screens/Authentication/auth_screen.dart';
+import 'package:meshapp/Screens/FollowRequests/followrequests_screen.dart';
 import 'package:meshapp/Screens/Profile/profile_screen.dart';
 import 'package:meshapp/Screens/TrainingAndEarning/mytraning_earning_screen.dart';
 import 'package:meshapp/Screens/Win/win_screen.dart';
@@ -233,11 +236,10 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 7;
                           });
-                          Get.off(
-                              HomeScreen(
-                                barTitle: "Collaborators",
-                              ),
-                              transition: Transition.noTransition);
+                          Get.back();
+                          Get.off(HomeScreen());
+                          Get.put(HomePostController())
+                              .changeToCallobrate(false);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,
@@ -251,6 +253,8 @@ class _AppDrawerState extends State<AppDrawer> {
                           setState(() {
                             selectIndex = 8;
                           });
+                          Get.off(FollowRequestScreen(),
+                              transition: Transition.noTransition);
                         }),
                     _createDrawerItem(
                         icon: Icons.home,
