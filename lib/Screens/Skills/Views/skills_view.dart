@@ -24,7 +24,7 @@ class _SkillViewState extends State<SkillView> {
 
       return Container(
         height: 60,
-        width: size.width * 0.45,
+        width: (size.width * 0.48) - 20,
         child: GestureDetector(
           onTap: () {
             controller.updateSkills(widget.model!);
